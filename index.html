@@ -5,8 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MathMark2PDF | Markdown & LaTeX Editor</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Math&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
     <script>
       tailwind.config = {
         theme: {
@@ -20,14 +25,25 @@
               }
             },
             fontFamily: {
-              sans: ['Inter', 'sans-serif'],
+              sans: ['Noto Sans', 'Inter', 'sans-serif'],
               mono: ['JetBrains Mono', 'monospace'],
+              math: ['Noto Sans Math', 'monospace'],
             }
           }
         }
       }
     </script>
     <style>
+      /* Global Font Override */
+      body {
+        font-family: 'Noto Sans', sans-serif;
+      }
+
+      /* KaTeX Math Font Override */
+      .katex, .katex * {
+        font-family: 'Noto Sans Math', monospace !important;
+      }
+
       /* Custom Scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
@@ -42,6 +58,85 @@
       }
       ::-webkit-scrollbar-thumb:hover {
         background: #737373; 
+      }
+
+      /* Templates */
+      .template-Standard {
+        /* Default Styles */
+      }
+
+      .template-Academic {
+        font-family: 'Times New Roman', Times, serif !important;
+        line-height: 1.8 !important;
+        text-align: justify;
+      }
+      .template-Academic h1 {
+        text-align: center;
+        text-transform: uppercase;
+        font-size: 2.25rem;
+        border-bottom: none !important;
+        margin-bottom: 2rem;
+      }
+      .template-Academic h2 {
+        border-bottom: 1px solid #000;
+        padding-bottom: 0.25rem;
+        font-size: 1.5rem;
+      }
+      .template-Academic p {
+        text-indent: 2em;
+        margin-bottom: 1rem;
+      }
+      .template-Academic blockquote {
+        font-style: italic;
+        border-left: 3px solid #000;
+      }
+
+      .template-Business {
+        font-family: 'Noto Sans', sans-serif !important;
+      }
+      .template-Business h1 {
+        color: #1e3a8a; /* blue-900 */
+        border-bottom: 3px solid #1e3a8a !important;
+        padding-bottom: 0.5rem;
+        font-weight: 800;
+      }
+      .template-Business h2 {
+        color: #1d4ed8; /* blue-700 */
+        font-weight: 700;
+        margin-top: 2rem;
+      }
+      .template-Business h3 {
+        color: #2563eb; /* blue-600 */
+        font-weight: 600;
+      }
+      .template-Business a {
+        color: #2563eb !important;
+        text-decoration: none !important;
+      }
+      .template-Business table {
+        border-color: #e2e8f0;
+      }
+      .template-Business th {
+        background-color: #f1f5f9;
+        color: #1e3a8a;
+      }
+
+      .template-Typewriter {
+        font-family: 'Courier New', Courier, monospace !important;
+        color: #333;
+      }
+      .template-Typewriter h1, 
+      .template-Typewriter h2, 
+      .template-Typewriter h3 {
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-bottom: 1px dashed #333 !important;
+      }
+      .template-Typewriter code, 
+      .template-Typewriter pre {
+        background-color: #f0f0f0 !important;
+        border: 1px solid #999;
       }
 
       /* Print Styles for PDF Export */
@@ -108,7 +203,11 @@
     "remark-gfm": "https://esm.sh/remark-gfm@4.0.0?bundle",
     "remark-math": "https://esm.sh/remark-math@6.0.0?bundle",
     "rehype-katex": "https://esm.sh/rehype-katex@7.0.0?bundle",
-    "katex": "https://esm.sh/katex@0.16.9"
+    "katex": "https://esm.sh/katex@0.16.9",
+    "path": "https://esm.sh/path@^0.12.7",
+    "vite": "https://esm.sh/vite@^7.3.0",
+    "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
+    "url": "https://esm.sh/url@^0.11.4"
   }
 }
 </script>

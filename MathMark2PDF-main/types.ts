@@ -1,19 +1,7 @@
 export type ViewMode = 'editor' | 'preview' | 'split';
-export type PageSize = 'A4' | 'Letter' | 'Legal';
-export type Template = 'Standard' | 'Academic' | 'Business' | 'Typewriter';
-export type FontSize = 'Small' | 'Medium' | 'Large' | 'Extra Large';
 
 export interface DocumentState {
   title: string;
-  content: string;
-  pageSize: PageSize;
-  template: Template;
-  fontSize: FontSize;
-}
-
-export interface Preset {
-  id: string;
-  name: string;
   content: string;
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { FileText, Printer, FileCode, MessageSquare, FileType } from 'lucide-react';
+import { Download, FileJson, FileText, Printer, FileCode, MessageSquare } from 'lucide-react';
 
 interface HeaderProps {
   title: string;
@@ -7,7 +7,6 @@ interface HeaderProps {
   onExportMarkdown: () => void;
   onExportHTML: () => void;
   onExportPDF: () => void;
-  onExportDOCX: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ 
@@ -15,12 +14,11 @@ const Header: React.FC<HeaderProps> = ({
   onTitleChange, 
   onExportMarkdown, 
   onExportHTML, 
-  onExportPDF,
-  onExportDOCX
+  onExportPDF 
 }) => {
   return (
     <header className="relative h-14 bg-brand-black border-b border-brand-red/30 text-white flex items-center justify-between px-4 shadow-md z-50">
-      <div className="flex items-centerkq flex-1 min-w-0 mr-4">
+      <div className="flex items-center flex-1 min-w-0 mr-4">
         <div className="flex items-center mr-6 hidden md:flex select-none">
             <span className="font-mono text-xl font-bold tracking-tight">
                 <span className="text-white">Math</span>
@@ -39,7 +37,7 @@ const Header: React.FC<HeaderProps> = ({
 
       <div className="flex items-center gap-2">
         <div className="flex items-center bg-zinc-800/80 border border-zinc-700 rounded-md p-1 gap-1">
-            <span className="text-xs font-bold text-brand-gold/80 px-2 hidden lg:block uppercase tracking-wider">Export</span>
+            <span className="text-xs font-bold text-brand-gold/80 px-2 hidden lg:block uppercase tracking-wider">Save</span>
             
             <button 
                 type="button"
@@ -48,17 +46,7 @@ const Header: React.FC<HeaderProps> = ({
                 title="Save as Markdown (.md)"
             >
                 <FileText size={14} />
-                <span className="hidden sm:inline">MD</span>
-            </button>
-
-            <button 
-                type="button"
-                onClick={onExportDOCX}
-                className="cursor-pointer flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium bg-white text-zinc-900 rounded hover:bg-brand-gold hover:text-black active:bg-yellow-500 transition-colors shadow-sm"
-                title="Save as Word (.docx)"
-            >
-                <FileType size={14} />
-                <span className="hidden sm:inline">DOCX</span>
+                <span className="hidden sm:inline">Markdown</span>
             </button>
             
             <button 
@@ -75,7 +63,7 @@ const Header: React.FC<HeaderProps> = ({
                 type="button"
                 onClick={onExportPDF}
                 className="cursor-pointer flex items-center gap-1.5 px-3 py-1.5 text-sm font-medium bg-brand-red text-white rounded hover:bg-red-700 active:bg-red-800 transition-colors shadow-sm"
-                title="Export as PDF"
+                title="Print / Save as PDF"
             >
                 <Printer size={14} />
                 <span className="hidden sm:inline">PDF</span>
