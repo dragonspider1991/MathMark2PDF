@@ -7,13 +7,14 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Math&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&family=JetBrains+Mono:wght@400;500&family=Noto+Sans+Math&family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Noto+Serif:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Roboto+Mono:wght@400;500&family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/html-docx-js@0.3.1/dist/html-docx.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/file-saver@2.0.5/dist/FileSaver.min.js"></script>
     <script>
       tailwind.config = {
+        darkMode: 'class',
         theme: {
           extend: {
             colors: {
@@ -39,34 +40,21 @@
         font-family: 'Noto Sans', sans-serif;
       }
 
-      /* KaTeX Math Font Override */
-      .katex, .katex * {
-        font-family: 'Noto Sans Math', monospace !important;
-      }
+      /* KaTeX Math Font Override - This will be dynamically controlled by inline styles in App.tsx */
+      .katex { font-family: inherit; }
 
       /* Custom Scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #f1f1f1; 
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #a3a3a3; 
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #737373; 
-      }
+      ::-webkit-scrollbar { width: 8px; height: 8px; }
+      ::-webkit-scrollbar-track { background: #f1f1f1; }
+      .dark ::-webkit-scrollbar-track { background: #27272a; }
+      ::-webkit-scrollbar-thumb { background: #a3a3a3; border-radius: 4px; }
+      ::-webkit-scrollbar-thumb:hover { background: #737373; }
+      .dark ::-webkit-scrollbar-thumb { background: #52525b; }
 
-      /* Templates */
-      .template-Standard {
-        /* Default Styles */
-      }
+      /* Template Styles */
+      .template-Standard { }
 
       .template-Academic {
-        font-family: 'Times New Roman', Times, serif !important;
         line-height: 1.8 !important;
         text-align: justify;
       }
@@ -78,74 +66,74 @@
         margin-bottom: 2rem;
       }
       .template-Academic h2 {
-        border-bottom: 1px solid #000;
+        border-bottom: 1px solid currentColor;
         padding-bottom: 0.25rem;
         font-size: 1.5rem;
       }
-      .template-Academic p {
-        text-indent: 2em;
-        margin-bottom: 1rem;
-      }
-      .template-Academic blockquote {
-        font-style: italic;
-        border-left: 3px solid #000;
-      }
 
       .template-Business {
-        font-family: 'Noto Sans', sans-serif !important;
+        border-top: 8px solid #1e3a8a;
+        padding-top: 2rem !important;
       }
       .template-Business h1 {
-        color: #1e3a8a; /* blue-900 */
+        color: #1e3a8a;
         border-bottom: 3px solid #1e3a8a !important;
         padding-bottom: 0.5rem;
         font-weight: 800;
       }
-      .template-Business h2 {
-        color: #1d4ed8; /* blue-700 */
-        font-weight: 700;
-        margin-top: 2rem;
-      }
-      .template-Business h3 {
-        color: #2563eb; /* blue-600 */
-        font-weight: 600;
-      }
-      .template-Business a {
-        color: #2563eb !important;
-        text-decoration: none !important;
-      }
-      .template-Business table {
-        border-color: #e2e8f0;
-      }
-      .template-Business th {
-        background-color: #f1f5f9;
-        color: #1e3a8a;
-      }
+      .dark .template-Business h1 { color: #60a5fa; border-color: #60a5fa !important; }
 
-      .template-Typewriter {
-        font-family: 'Courier New', Courier, monospace !important;
-        color: #333;
-      }
-      .template-Typewriter h1, 
-      .template-Typewriter h2, 
-      .template-Typewriter h3 {
+      .template-Typewriter { color: #333; }
+      .dark .template-Typewriter { color: #e5e7eb; }
+      .template-Typewriter h1, .template-Typewriter h2, .template-Typewriter h3 {
         font-weight: bold;
         text-transform: uppercase;
         letter-spacing: 1px;
-        border-bottom: 1px dashed #333 !important;
-      }
-      .template-Typewriter code, 
-      .template-Typewriter pre {
-        background-color: #f0f0f0 !important;
-        border: 1px solid #999;
+        border-bottom: 1px dashed currentColor !important;
       }
 
-      /* Print Styles for PDF Export */
+      /* New: Modern Template */
+      .template-Modern {
+        line-height: 1.5;
+      }
+      .template-Modern h1 {
+        background: #000;
+        color: #fff;
+        padding: 1rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: -1px;
+      }
+      .dark .template-Modern h1 { background: #fff; color: #000; }
+      .template-Modern h2 {
+        font-weight: 800;
+        border-left: 6px solid #DC2626;
+        padding-left: 1rem;
+      }
+
+      /* New: Elegant Template */
+      .template-Elegant {
+        line-height: 1.7;
+        color: #2c3e50;
+      }
+      .dark .template-Elegant { color: #ecf0f1; }
+      .template-Elegant h1 {
+        font-weight: 300;
+        text-align: center;
+        letter-spacing: 4px;
+        text-transform: uppercase;
+        border-bottom: 1px solid #d4af37 !important;
+        margin-bottom: 3rem;
+      }
+      .template-Elegant blockquote {
+        border: none;
+        text-align: center;
+        font-size: 1.25rem;
+        color: #d4af37;
+      }
+
       @media print {
-        @page {
-          margin: 15mm;
-          size: auto;
-        }
-
+        @page { margin: 15mm; size: auto; }
         html, body, #root, .h-screen, .h-full, .overflow-hidden {
           height: auto !important;
           min-height: 0 !important;
@@ -156,63 +144,32 @@
           margin: 0 !important;
           padding: 0 !important;
         }
-
-        body {
-            background-color: white !important;
-        }
-
-        .no-print {
-          display: none !important;
-        }
-
-        * {
-            -webkit-print-color-adjust: exact !important;
-            print-color-adjust: exact !important;
-        }
-
-        a {
-            text-decoration: underline;
-            color: #DC2626 !important;
-        }
-
-        h1, h2, h3, h4, h5, h6 {
-            break-after: avoid;
-        }
-        
-        p, pre, blockquote, ul, ol, dl, table, img {
-            break-inside: avoid;
-        }
-        
-        pre {
-            white-space: pre-wrap !important;
-            word-wrap: break-word !important;
-        }
+        body { background-color: white !important; color: black !important; }
+        .no-print { display: none !important; }
+        * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
       }
     </style>
   <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@18.2.0",
-    "react/": "https://esm.sh/react@18.2.0/",
-    "react/jsx-runtime": "https://esm.sh/react@18.2.0/jsx-runtime",
-    "react-dom": "https://esm.sh/react-dom@18.2.0",
-    "react-dom/": "https://esm.sh/react-dom@18.2.0/",
-    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
-    "lucide-react": "https://esm.sh/lucide-react@0.344.0?deps=react@18.2.0",
-    "react-markdown": "https://esm.sh/react-markdown@9.0.1?bundle&deps=react@18.2.0",
-    "remark-gfm": "https://esm.sh/remark-gfm@4.0.0?bundle",
-    "remark-math": "https://esm.sh/remark-math@6.0.0?bundle",
-    "rehype-katex": "https://esm.sh/rehype-katex@7.0.0?bundle",
-    "katex": "https://esm.sh/katex@0.16.9",
-    "path": "https://esm.sh/path@^0.12.7",
-    "vite": "https://esm.sh/vite@^7.3.0",
     "@vitejs/plugin-react": "https://esm.sh/@vitejs/plugin-react@^5.1.2",
-    "url": "https://esm.sh/url@^0.11.4"
+    "vite": "https://esm.sh/vite@^7.3.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react-markdown": "https://esm.sh/react-markdown@^10.1.0",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "url": "https://esm.sh/url@^0.11.4",
+    "remark-math": "https://esm.sh/remark-math@^6.0.0",
+    "remark-gfm": "https://esm.sh/remark-gfm@^4.0.1",
+    "path": "https://esm.sh/path@^0.12.7",
+    "rehype-katex": "https://esm.sh/rehype-katex@^7.0.1"
   }
 }
 </script>
 </head>
-  <body class="bg-gray-50 text-gray-900 h-screen overflow-hidden">
+  <body class="bg-gray-50 dark:bg-zinc-950 text-gray-900 dark:text-gray-100 h-screen overflow-hidden">
     <div id="root" class="h-full"></div>
+    <script type="module" src="/index.tsx"></script>
   </body>
 </html>

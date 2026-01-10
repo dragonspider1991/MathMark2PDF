@@ -1,7 +1,15 @@
 export type ViewMode = 'editor' | 'preview' | 'split';
 export type PageSize = 'A4' | 'Letter' | 'Legal';
-export type Template = 'Standard' | 'Academic' | 'Business' | 'Typewriter';
+export type Template = 'Standard' | 'Academic' | 'Business' | 'Typewriter' | 'Modern' | 'Elegant';
 export type FontSize = 'Small' | 'Medium' | 'Large' | 'Extra Large';
+
+export interface PDFSettings {
+  orientation: 'portrait' | 'landscape';
+  margins: number; // in mm
+  textFont: string;
+  mathFont: string;
+  isFontOverridden: boolean;
+}
 
 export interface DocumentState {
   title: string;
@@ -9,6 +17,7 @@ export interface DocumentState {
   pageSize: PageSize;
   template: Template;
   fontSize: FontSize;
+  pdfSettings: PDFSettings;
 }
 
 export interface Preset {
